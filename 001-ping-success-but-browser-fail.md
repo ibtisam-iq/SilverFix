@@ -27,3 +27,12 @@ After clearing the DNS cache, GitHub opened normally without VPN.
 * As a quick check, always try direct access one of GitHub’s IPs (`https://140.82.121.4/`) to differentiate between DNS vs network issues.
 * If this happens often, consider resetting the browser’s network stack or uninstalling unused VPN adapters from Windows network settings.
 
+## New Learning Unlocked
+- **Ping vs Browser DNS**: Ping uses the OS DNS resolver, while browsers often cache their own DNS. That’s why ping worked but the browser failed.  
+- **Impact of VPN switching**: Rapidly switching VPNs can leave behind stale DNS and proxy configs that only affect browsers.  
+- **Cross-platform awareness**: Flushing DNS is different on Windows vs Linux (e.g., `ipconfig /flushdns` vs `systemd-resolve --flush-caches`).
+
+## Realization
+- While checking Chrome’s DNS lookup page, I noticed that the resolved IPs shown there were exactly the same as those from the `nslookup` command in the terminal.  
+- I already knew how `nslookup` works, but this gave me clarity that both tools are just showing the same resolver output in different interfaces.  
+
