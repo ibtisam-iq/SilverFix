@@ -70,6 +70,30 @@ If you don't see a command prompt, try pressing enter.
 / # exit 
 pod "test" deleted
 
+controlplane:~$ k exec -it task-pv-pod -- cat /opt/gold-stc-cka/ibtisam.txt 
+cat: /opt/gold-stc-cka/ibtisam.txt: No such file or directory
+command terminated with exit code 1
+
+controlplane:~$ cat pod.yaml 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: task-pv-pod
+spec:
+  volumes:
+    - name: task-pv-storage
+      persistentVolumeClaim:
+        claimName: gold-pvc-cka
+  containers:
+    - name: task-pv-container
+      image: nginx
+      ports:
+        - containerPort: 80
+          name: "http-server"
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: task-pv-storage
+
 controlplane:~$ k exec -it task-pv-pod -- cat /usr/share/nginx/html/ibtisam.txt
 I love you Ibtisam
 controlplane:~$ 
